@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "dto.Tutoriales">        
+    <resultMap id="tutoriales" type="dto.Tutoriales">
+        <result column="idtutorial" property="idtutorial" jdbcType="INTEGER"/>
+        <result column="titulo" property="titulo" jdbcType="VARCHAR"/>
+        <result column="tipo" property="tipo" jdbcType="VARCHAR"/>
+        <result column="precio" property="precio" jdbcType="DOUBLE" />
+    </resultMap> 
+    <!-- Para insertar -->   
+    <insert id = "insert" parameterType = "dto.Tutoriales">
+        INSERT INTO TUTORIALES (TITULO,TIPO,PRECIO) VALUES (#{titulo}, #{tipo}, #{precio});			
+        <selectKey keyProperty = "idtutorial" resultType = "int" order = "AFTER">
+            select last_insert_id() as idtutorial
+        </selectKey>   			
+    </insert>    
+    <!-- Fin inset-->	
+    
+    <!-- Para listar -->    
+    <resultMap id = "tutorial" type = "dto.Tutoriales">
+        <result property = "idtutorial" column = "idtutorial"/>	    
+    </resultMap>
+	
+    <select id = "getAll" resultMap = "tutorial">
+        SELECT * FROM Tutoriales;
+    </select>
+    
+    <select id = "getById" parameterType = "int" resultMap = "tutorial">
+        SELECT * FROM Tutoriales WHERE idtutorial = #{idtutorial};
+    </select>
+    
+    <!-- fin select-->
+    
+    <!-- upd -->
+    <select id = "getByIdUpd" parameterType = "int" resultMap = "tutoriales">
+        SELECT * FROM Tutoriales WHERE idtutorial = #{idtutorial};
+    </select>
+  	
+    <update id = "update" parameterType = "dto.Tutoriales">
+        UPDATE Tutoriales SET titulo = #{titulo}, 
+        tipo = #{tipo}, 
+        precio = #{precio}
+        WHERE idtutorial = #{idtutorial};
+    </update>
+    
+    <!-- fin udt-->
+    
+    <!-- Procedimientos alamcenados-->
+    <select id = "tutoalm" resultMap = "tutoriales" parameterType = "dto.Tutoriales" statementType = "CALLABLE">
+        {call procedimiento_tutoriales(#{tutoriales_id, jdbcType = INTEGER, mode = IN})}
+    </select>   
+    <!-- fin procediminetos alamcenados -->
+    
+    <!-- SQL Dinamico -->
+    <select id = "getRecByName" parameterType = "dto.Tutoriales" resultType = "dto.Tutoriales">
+        SELECT * FROM Tutoriales		 		
+        <if test = "titulo != null">
+            WHERE titulo LIKE #{titulo}
+        </if>		
+    </select>
+    <!-- fin dinamico -->
+    
+    
+</mapper>
