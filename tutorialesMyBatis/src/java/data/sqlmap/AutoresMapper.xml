@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.AutoresMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Autores" >
+    <id column="idautor" property="idautor" jdbcType="INTEGER" />
+    <result column="autor" property="autor" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idautor, autor
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from autores
+    where idautor = #{idautor,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from autores
+    where idautor = #{idautor,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Autores" >
+    insert into autores (idautor, autor)
+    values (#{idautor,jdbcType=INTEGER}, #{autor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Autores" >
+    insert into autores
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idautor != null" >
+        idautor,
+      </if>
+      <if test="autor != null" >
+        autor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idautor != null" >
+        #{idautor,jdbcType=INTEGER},
+      </if>
+      <if test="autor != null" >
+        #{autor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Autores" >
+    update autores
+    <set >
+      <if test="autor != null" >
+        autor = #{autor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idautor = #{idautor,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Autores" >
+    update autores
+    set autor = #{autor,jdbcType=VARCHAR}
+    where idautor = #{idautor,jdbcType=INTEGER}
+  </update>
+</mapper>

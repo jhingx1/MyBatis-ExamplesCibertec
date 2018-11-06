@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.PreguntasMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Preguntas" >
+    <id column="idpregunta" property="idpregunta" jdbcType="INTEGER" />
+    <result column="idexamen" property="idexamen" jdbcType="INTEGER" />
+    <result column="prioridad" property="prioridad" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="data.model.Preguntas" extends="BaseResultMap" >
+    <result column="pregunta" property="pregunta" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idpregunta, idexamen, prioridad
+  </sql>
+  <sql id="Blob_Column_List" >
+    pregunta
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from preguntas
+    where idpregunta = #{idpregunta,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from preguntas
+    where idpregunta = #{idpregunta,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Preguntas" >
+    insert into preguntas (idpregunta, idexamen, prioridad, 
+      pregunta)
+    values (#{idpregunta,jdbcType=INTEGER}, #{idexamen,jdbcType=INTEGER}, #{prioridad,jdbcType=INTEGER}, 
+      #{pregunta,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Preguntas" >
+    insert into preguntas
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idpregunta != null" >
+        idpregunta,
+      </if>
+      <if test="idexamen != null" >
+        idexamen,
+      </if>
+      <if test="prioridad != null" >
+        prioridad,
+      </if>
+      <if test="pregunta != null" >
+        pregunta,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idpregunta != null" >
+        #{idpregunta,jdbcType=INTEGER},
+      </if>
+      <if test="idexamen != null" >
+        #{idexamen,jdbcType=INTEGER},
+      </if>
+      <if test="prioridad != null" >
+        #{prioridad,jdbcType=INTEGER},
+      </if>
+      <if test="pregunta != null" >
+        #{pregunta,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Preguntas" >
+    update preguntas
+    <set >
+      <if test="idexamen != null" >
+        idexamen = #{idexamen,jdbcType=INTEGER},
+      </if>
+      <if test="prioridad != null" >
+        prioridad = #{prioridad,jdbcType=INTEGER},
+      </if>
+      <if test="pregunta != null" >
+        pregunta = #{pregunta,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where idpregunta = #{idpregunta,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="data.model.Preguntas" >
+    update preguntas
+    set idexamen = #{idexamen,jdbcType=INTEGER},
+      prioridad = #{prioridad,jdbcType=INTEGER},
+      pregunta = #{pregunta,jdbcType=LONGVARCHAR}
+    where idpregunta = #{idpregunta,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Preguntas" >
+    update preguntas
+    set idexamen = #{idexamen,jdbcType=INTEGER},
+      prioridad = #{prioridad,jdbcType=INTEGER}
+    where idpregunta = #{idpregunta,jdbcType=INTEGER}
+  </update>
+</mapper>

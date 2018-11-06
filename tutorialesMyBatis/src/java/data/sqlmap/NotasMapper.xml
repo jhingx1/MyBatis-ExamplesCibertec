@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.NotasMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Notas" >
+    <id column="idnota" property="idnota" jdbcType="INTEGER" />
+    <result column="idalumno" property="idalumno" jdbcType="INTEGER" />
+    <result column="nota" property="nota" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idnota, idalumno, nota
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from notas
+    where idnota = #{idnota,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from notas
+    where idnota = #{idnota,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Notas" >
+    insert into notas (idnota, idalumno, nota
+      )
+    values (#{idnota,jdbcType=INTEGER}, #{idalumno,jdbcType=INTEGER}, #{nota,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Notas" >
+    insert into notas
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idnota != null" >
+        idnota,
+      </if>
+      <if test="idalumno != null" >
+        idalumno,
+      </if>
+      <if test="nota != null" >
+        nota,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idnota != null" >
+        #{idnota,jdbcType=INTEGER},
+      </if>
+      <if test="idalumno != null" >
+        #{idalumno,jdbcType=INTEGER},
+      </if>
+      <if test="nota != null" >
+        #{nota,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Notas" >
+    update notas
+    <set >
+      <if test="idalumno != null" >
+        idalumno = #{idalumno,jdbcType=INTEGER},
+      </if>
+      <if test="nota != null" >
+        nota = #{nota,jdbcType=INTEGER},
+      </if>
+    </set>
+    where idnota = #{idnota,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Notas" >
+    update notas
+    set idalumno = #{idalumno,jdbcType=INTEGER},
+      nota = #{nota,jdbcType=INTEGER}
+    where idnota = #{idnota,jdbcType=INTEGER}
+  </update>
+</mapper>

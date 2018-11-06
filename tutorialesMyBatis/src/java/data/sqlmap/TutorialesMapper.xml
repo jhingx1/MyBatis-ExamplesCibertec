@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.TutorialesMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Tutoriales" >
+    <id column="idtutorial" property="idtutorial" jdbcType="INTEGER" />
+    <result column="titulo" property="titulo" jdbcType="VARCHAR" />
+    <result column="tipo" property="tipo" jdbcType="VARCHAR" />
+    <result column="precio" property="precio" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idtutorial, titulo, tipo, precio
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tutoriales
+    where idtutorial = #{idtutorial,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tutoriales
+    where idtutorial = #{idtutorial,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Tutoriales" >
+    insert into tutoriales (idtutorial, titulo, tipo, 
+      precio)
+    values (#{idtutorial,jdbcType=INTEGER}, #{titulo,jdbcType=VARCHAR}, #{tipo,jdbcType=VARCHAR}, 
+      #{precio,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Tutoriales" >
+    insert into tutoriales
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idtutorial != null" >
+        idtutorial,
+      </if>
+      <if test="titulo != null" >
+        titulo,
+      </if>
+      <if test="tipo != null" >
+        tipo,
+      </if>
+      <if test="precio != null" >
+        precio,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idtutorial != null" >
+        #{idtutorial,jdbcType=INTEGER},
+      </if>
+      <if test="titulo != null" >
+        #{titulo,jdbcType=VARCHAR},
+      </if>
+      <if test="tipo != null" >
+        #{tipo,jdbcType=VARCHAR},
+      </if>
+      <if test="precio != null" >
+        #{precio,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Tutoriales" >
+    update tutoriales
+    <set >
+      <if test="titulo != null" >
+        titulo = #{titulo,jdbcType=VARCHAR},
+      </if>
+      <if test="tipo != null" >
+        tipo = #{tipo,jdbcType=VARCHAR},
+      </if>
+      <if test="precio != null" >
+        precio = #{precio,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where idtutorial = #{idtutorial,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Tutoriales" >
+    update tutoriales
+    set titulo = #{titulo,jdbcType=VARCHAR},
+      tipo = #{tipo,jdbcType=VARCHAR},
+      precio = #{precio,jdbcType=DOUBLE}
+    where idtutorial = #{idtutorial,jdbcType=INTEGER}
+  </update>
+</mapper>

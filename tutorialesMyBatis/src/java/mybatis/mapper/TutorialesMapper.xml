@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.mapper.TutorialesMapper"> <!-- interface java -->
+    <resultMap id="tutoriales" type="dto.Tutoriales">
+        <id column="idtutorial" property="idtutorial" jdbcType="INTEGER"/>
+        <result column="titulo" property="titulo" jdbcType="VARCHAR"/>
+        <result column="tipo" property="tipo" jdbcType="VARCHAR"/>
+        <result column="precio" property="precio" jdbcType="DOUBLE" />
+    </resultMap>
+</mapper>
