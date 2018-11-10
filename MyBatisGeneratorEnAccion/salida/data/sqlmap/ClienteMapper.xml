@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.ClienteMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Cliente" >
+    <id column="codigo" property="codigo" jdbcType="INTEGER" />
+    <result column="nombre" property="nombre" jdbcType="VARCHAR" />
+    <result column="apellido" property="apellido" jdbcType="VARCHAR" />
+    <result column="fecha" property="fecha" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    codigo, nombre, apellido, fecha
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from cliente
+    where codigo = #{codigo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cliente
+    where codigo = #{codigo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Cliente" >
+    insert into cliente (codigo, nombre, apellido, 
+      fecha)
+    values (#{codigo,jdbcType=INTEGER}, #{nombre,jdbcType=VARCHAR}, #{apellido,jdbcType=VARCHAR}, 
+      #{fecha,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Cliente" >
+    insert into cliente
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codigo != null" >
+        codigo,
+      </if>
+      <if test="nombre != null" >
+        nombre,
+      </if>
+      <if test="apellido != null" >
+        apellido,
+      </if>
+      <if test="fecha != null" >
+        fecha,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codigo != null" >
+        #{codigo,jdbcType=INTEGER},
+      </if>
+      <if test="nombre != null" >
+        #{nombre,jdbcType=VARCHAR},
+      </if>
+      <if test="apellido != null" >
+        #{apellido,jdbcType=VARCHAR},
+      </if>
+      <if test="fecha != null" >
+        #{fecha,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Cliente" >
+    update cliente
+    <set >
+      <if test="nombre != null" >
+        nombre = #{nombre,jdbcType=VARCHAR},
+      </if>
+      <if test="apellido != null" >
+        apellido = #{apellido,jdbcType=VARCHAR},
+      </if>
+      <if test="fecha != null" >
+        fecha = #{fecha,jdbcType=DATE},
+      </if>
+    </set>
+    where codigo = #{codigo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Cliente" >
+    update cliente
+    set nombre = #{nombre,jdbcType=VARCHAR},
+      apellido = #{apellido,jdbcType=VARCHAR},
+      fecha = #{fecha,jdbcType=DATE}
+    where codigo = #{codigo,jdbcType=INTEGER}
+  </update>
+</mapper>

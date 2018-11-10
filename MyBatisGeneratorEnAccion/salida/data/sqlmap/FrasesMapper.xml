@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.FrasesMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Frases" >
+    <id column="idfrase" property="idfrase" jdbcType="INTEGER" />
+    <result column="idautor" property="idautor" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="data.model.Frases" extends="BaseResultMap" >
+    <result column="frase" property="frase" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idfrase, idautor
+  </sql>
+  <sql id="Blob_Column_List" >
+    frase
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from frases
+    where idfrase = #{idfrase,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from frases
+    where idfrase = #{idfrase,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Frases" >
+    insert into frases (idfrase, idautor, frase
+      )
+    values (#{idfrase,jdbcType=INTEGER}, #{idautor,jdbcType=INTEGER}, #{frase,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Frases" >
+    insert into frases
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idfrase != null" >
+        idfrase,
+      </if>
+      <if test="idautor != null" >
+        idautor,
+      </if>
+      <if test="frase != null" >
+        frase,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idfrase != null" >
+        #{idfrase,jdbcType=INTEGER},
+      </if>
+      <if test="idautor != null" >
+        #{idautor,jdbcType=INTEGER},
+      </if>
+      <if test="frase != null" >
+        #{frase,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Frases" >
+    update frases
+    <set >
+      <if test="idautor != null" >
+        idautor = #{idautor,jdbcType=INTEGER},
+      </if>
+      <if test="frase != null" >
+        frase = #{frase,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where idfrase = #{idfrase,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="data.model.Frases" >
+    update frases
+    set idautor = #{idautor,jdbcType=INTEGER},
+      frase = #{frase,jdbcType=LONGVARCHAR}
+    where idfrase = #{idfrase,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Frases" >
+    update frases
+    set idautor = #{idautor,jdbcType=INTEGER}
+    where idfrase = #{idfrase,jdbcType=INTEGER}
+  </update>
+</mapper>

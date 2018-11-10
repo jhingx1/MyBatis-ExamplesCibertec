@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.EmpCertMapper" >
+  <resultMap id="BaseResultMap" type="data.model.EmpCert" >
+    <id column="employee_id" property="employee_id" jdbcType="INTEGER" />
+    <id column="certificate_id" property="certificate_id" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from emp_cert
+    where employee_id = #{employee_id,jdbcType=INTEGER}
+      and certificate_id = #{certificate_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.EmpCert" >
+    insert into emp_cert (employee_id, certificate_id)
+    values (#{employee_id,jdbcType=INTEGER}, #{certificate_id,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.EmpCert" >
+    insert into emp_cert
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employee_id != null" >
+        employee_id,
+      </if>
+      <if test="certificate_id != null" >
+        certificate_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employee_id != null" >
+        #{employee_id,jdbcType=INTEGER},
+      </if>
+      <if test="certificate_id != null" >
+        #{certificate_id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

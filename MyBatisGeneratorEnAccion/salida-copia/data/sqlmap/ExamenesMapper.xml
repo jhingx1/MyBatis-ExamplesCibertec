@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.ExamenesMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Examenes" >
+    <id column="idexamen" property="idexamen" jdbcType="INTEGER" />
+    <result column="titulo" property="titulo" jdbcType="VARCHAR" />
+    <result column="duracion" property="duracion" jdbcType="INTEGER" />
+    <result column="publicacion" property="publicacion" jdbcType="DATE" />
+    <result column="minimanota" property="minimanota" jdbcType="DOUBLE" />
+    <result column="activo" property="activo" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="data.model.Examenes" extends="BaseResultMap" >
+    <result column="descripcion" property="descripcion" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idexamen, titulo, duracion, publicacion, minimanota, activo
+  </sql>
+  <sql id="Blob_Column_List" >
+    descripcion
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from examenes
+    where idexamen = #{idexamen,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from examenes
+    where idexamen = #{idexamen,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Examenes" >
+    insert into examenes (idexamen, titulo, duracion, 
+      publicacion, minimanota, activo, 
+      descripcion)
+    values (#{idexamen,jdbcType=INTEGER}, #{titulo,jdbcType=VARCHAR}, #{duracion,jdbcType=INTEGER}, 
+      #{publicacion,jdbcType=DATE}, #{minimanota,jdbcType=DOUBLE}, #{activo,jdbcType=CHAR}, 
+      #{descripcion,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Examenes" >
+    insert into examenes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idexamen != null" >
+        idexamen,
+      </if>
+      <if test="titulo != null" >
+        titulo,
+      </if>
+      <if test="duracion != null" >
+        duracion,
+      </if>
+      <if test="publicacion != null" >
+        publicacion,
+      </if>
+      <if test="minimanota != null" >
+        minimanota,
+      </if>
+      <if test="activo != null" >
+        activo,
+      </if>
+      <if test="descripcion != null" >
+        descripcion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idexamen != null" >
+        #{idexamen,jdbcType=INTEGER},
+      </if>
+      <if test="titulo != null" >
+        #{titulo,jdbcType=VARCHAR},
+      </if>
+      <if test="duracion != null" >
+        #{duracion,jdbcType=INTEGER},
+      </if>
+      <if test="publicacion != null" >
+        #{publicacion,jdbcType=DATE},
+      </if>
+      <if test="minimanota != null" >
+        #{minimanota,jdbcType=DOUBLE},
+      </if>
+      <if test="activo != null" >
+        #{activo,jdbcType=CHAR},
+      </if>
+      <if test="descripcion != null" >
+        #{descripcion,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Examenes" >
+    update examenes
+    <set >
+      <if test="titulo != null" >
+        titulo = #{titulo,jdbcType=VARCHAR},
+      </if>
+      <if test="duracion != null" >
+        duracion = #{duracion,jdbcType=INTEGER},
+      </if>
+      <if test="publicacion != null" >
+        publicacion = #{publicacion,jdbcType=DATE},
+      </if>
+      <if test="minimanota != null" >
+        minimanota = #{minimanota,jdbcType=DOUBLE},
+      </if>
+      <if test="activo != null" >
+        activo = #{activo,jdbcType=CHAR},
+      </if>
+      <if test="descripcion != null" >
+        descripcion = #{descripcion,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where idexamen = #{idexamen,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="data.model.Examenes" >
+    update examenes
+    set titulo = #{titulo,jdbcType=VARCHAR},
+      duracion = #{duracion,jdbcType=INTEGER},
+      publicacion = #{publicacion,jdbcType=DATE},
+      minimanota = #{minimanota,jdbcType=DOUBLE},
+      activo = #{activo,jdbcType=CHAR},
+      descripcion = #{descripcion,jdbcType=LONGVARCHAR}
+    where idexamen = #{idexamen,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Examenes" >
+    update examenes
+    set titulo = #{titulo,jdbcType=VARCHAR},
+      duracion = #{duracion,jdbcType=INTEGER},
+      publicacion = #{publicacion,jdbcType=DATE},
+      minimanota = #{minimanota,jdbcType=DOUBLE},
+      activo = #{activo,jdbcType=CHAR}
+    where idexamen = #{idexamen,jdbcType=INTEGER}
+  </update>
+</mapper>

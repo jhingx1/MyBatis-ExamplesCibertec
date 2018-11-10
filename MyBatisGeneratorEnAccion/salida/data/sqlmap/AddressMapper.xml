@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.AddressMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Address" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="street_name" property="street_name" jdbcType="VARCHAR" />
+    <result column="city_name" property="city_name" jdbcType="VARCHAR" />
+    <result column="state_name" property="state_name" jdbcType="VARCHAR" />
+    <result column="zipcode" property="zipcode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, street_name, city_name, state_name, zipcode
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Address" >
+    insert into address (id, street_name, city_name, 
+      state_name, zipcode)
+    values (#{id,jdbcType=INTEGER}, #{street_name,jdbcType=VARCHAR}, #{city_name,jdbcType=VARCHAR}, 
+      #{state_name,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Address" >
+    insert into address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="street_name != null" >
+        street_name,
+      </if>
+      <if test="city_name != null" >
+        city_name,
+      </if>
+      <if test="state_name != null" >
+        state_name,
+      </if>
+      <if test="zipcode != null" >
+        zipcode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="street_name != null" >
+        #{street_name,jdbcType=VARCHAR},
+      </if>
+      <if test="city_name != null" >
+        #{city_name,jdbcType=VARCHAR},
+      </if>
+      <if test="state_name != null" >
+        #{state_name,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Address" >
+    update address
+    <set >
+      <if test="street_name != null" >
+        street_name = #{street_name,jdbcType=VARCHAR},
+      </if>
+      <if test="city_name != null" >
+        city_name = #{city_name,jdbcType=VARCHAR},
+      </if>
+      <if test="state_name != null" >
+        state_name = #{state_name,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        zipcode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Address" >
+    update address
+    set street_name = #{street_name,jdbcType=VARCHAR},
+      city_name = #{city_name,jdbcType=VARCHAR},
+      state_name = #{state_name,jdbcType=VARCHAR},
+      zipcode = #{zipcode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

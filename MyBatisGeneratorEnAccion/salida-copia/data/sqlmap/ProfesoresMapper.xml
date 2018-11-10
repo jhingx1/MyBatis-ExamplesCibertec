@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.ProfesoresMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Profesores" >
+    <id column="idprofesores" property="idprofesores" jdbcType="INTEGER" />
+    <result column="nombreprofesores" property="nombreprofesores" jdbcType="VARCHAR" />
+    <result column="carrera" property="carrera" jdbcType="VARCHAR" />
+    <result column="fechaingreso" property="fechaingreso" jdbcType="DATE" />
+    <result column="tipocontrato" property="tipocontrato" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idprofesores, nombreprofesores, carrera, fechaingreso, tipocontrato
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from profesores
+    where idprofesores = #{idprofesores,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from profesores
+    where idprofesores = #{idprofesores,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Profesores" >
+    insert into profesores (idprofesores, nombreprofesores, carrera, 
+      fechaingreso, tipocontrato)
+    values (#{idprofesores,jdbcType=INTEGER}, #{nombreprofesores,jdbcType=VARCHAR}, #{carrera,jdbcType=VARCHAR}, 
+      #{fechaingreso,jdbcType=DATE}, #{tipocontrato,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Profesores" >
+    insert into profesores
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idprofesores != null" >
+        idprofesores,
+      </if>
+      <if test="nombreprofesores != null" >
+        nombreprofesores,
+      </if>
+      <if test="carrera != null" >
+        carrera,
+      </if>
+      <if test="fechaingreso != null" >
+        fechaingreso,
+      </if>
+      <if test="tipocontrato != null" >
+        tipocontrato,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idprofesores != null" >
+        #{idprofesores,jdbcType=INTEGER},
+      </if>
+      <if test="nombreprofesores != null" >
+        #{nombreprofesores,jdbcType=VARCHAR},
+      </if>
+      <if test="carrera != null" >
+        #{carrera,jdbcType=VARCHAR},
+      </if>
+      <if test="fechaingreso != null" >
+        #{fechaingreso,jdbcType=DATE},
+      </if>
+      <if test="tipocontrato != null" >
+        #{tipocontrato,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Profesores" >
+    update profesores
+    <set >
+      <if test="nombreprofesores != null" >
+        nombreprofesores = #{nombreprofesores,jdbcType=VARCHAR},
+      </if>
+      <if test="carrera != null" >
+        carrera = #{carrera,jdbcType=VARCHAR},
+      </if>
+      <if test="fechaingreso != null" >
+        fechaingreso = #{fechaingreso,jdbcType=DATE},
+      </if>
+      <if test="tipocontrato != null" >
+        tipocontrato = #{tipocontrato,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idprofesores = #{idprofesores,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Profesores" >
+    update profesores
+    set nombreprofesores = #{nombreprofesores,jdbcType=VARCHAR},
+      carrera = #{carrera,jdbcType=VARCHAR},
+      fechaingreso = #{fechaingreso,jdbcType=DATE},
+      tipocontrato = #{tipocontrato,jdbcType=VARCHAR}
+    where idprofesores = #{idprofesores,jdbcType=INTEGER}
+  </update>
+</mapper>

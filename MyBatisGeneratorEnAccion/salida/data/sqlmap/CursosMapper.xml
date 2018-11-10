@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.CursosMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Cursos" >
+    <id column="idcursos" property="idcursos" jdbcType="INTEGER" />
+    <result column="nombrecursos" property="nombrecursos" jdbcType="VARCHAR" />
+    <result column="descripcion" property="descripcion" jdbcType="VARCHAR" />
+    <result column="fechainicio" property="fechainicio" jdbcType="DATE" />
+    <result column="fechafin" property="fechafin" jdbcType="DATE" />
+    <result column="tipo" property="tipo" jdbcType="VARCHAR" />
+    <result column="horas" property="horas" jdbcType="INTEGER" />
+    <result column="idprofesores" property="idprofesores" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idcursos, nombrecursos, descripcion, fechainicio, fechafin, tipo, horas, idprofesores
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from cursos
+    where idcursos = #{idcursos,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cursos
+    where idcursos = #{idcursos,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Cursos" >
+    insert into cursos (idcursos, nombrecursos, descripcion, 
+      fechainicio, fechafin, tipo, 
+      horas, idprofesores)
+    values (#{idcursos,jdbcType=INTEGER}, #{nombrecursos,jdbcType=VARCHAR}, #{descripcion,jdbcType=VARCHAR}, 
+      #{fechainicio,jdbcType=DATE}, #{fechafin,jdbcType=DATE}, #{tipo,jdbcType=VARCHAR}, 
+      #{horas,jdbcType=INTEGER}, #{idprofesores,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Cursos" >
+    insert into cursos
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idcursos != null" >
+        idcursos,
+      </if>
+      <if test="nombrecursos != null" >
+        nombrecursos,
+      </if>
+      <if test="descripcion != null" >
+        descripcion,
+      </if>
+      <if test="fechainicio != null" >
+        fechainicio,
+      </if>
+      <if test="fechafin != null" >
+        fechafin,
+      </if>
+      <if test="tipo != null" >
+        tipo,
+      </if>
+      <if test="horas != null" >
+        horas,
+      </if>
+      <if test="idprofesores != null" >
+        idprofesores,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idcursos != null" >
+        #{idcursos,jdbcType=INTEGER},
+      </if>
+      <if test="nombrecursos != null" >
+        #{nombrecursos,jdbcType=VARCHAR},
+      </if>
+      <if test="descripcion != null" >
+        #{descripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="fechainicio != null" >
+        #{fechainicio,jdbcType=DATE},
+      </if>
+      <if test="fechafin != null" >
+        #{fechafin,jdbcType=DATE},
+      </if>
+      <if test="tipo != null" >
+        #{tipo,jdbcType=VARCHAR},
+      </if>
+      <if test="horas != null" >
+        #{horas,jdbcType=INTEGER},
+      </if>
+      <if test="idprofesores != null" >
+        #{idprofesores,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Cursos" >
+    update cursos
+    <set >
+      <if test="nombrecursos != null" >
+        nombrecursos = #{nombrecursos,jdbcType=VARCHAR},
+      </if>
+      <if test="descripcion != null" >
+        descripcion = #{descripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="fechainicio != null" >
+        fechainicio = #{fechainicio,jdbcType=DATE},
+      </if>
+      <if test="fechafin != null" >
+        fechafin = #{fechafin,jdbcType=DATE},
+      </if>
+      <if test="tipo != null" >
+        tipo = #{tipo,jdbcType=VARCHAR},
+      </if>
+      <if test="horas != null" >
+        horas = #{horas,jdbcType=INTEGER},
+      </if>
+      <if test="idprofesores != null" >
+        idprofesores = #{idprofesores,jdbcType=INTEGER},
+      </if>
+    </set>
+    where idcursos = #{idcursos,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Cursos" >
+    update cursos
+    set nombrecursos = #{nombrecursos,jdbcType=VARCHAR},
+      descripcion = #{descripcion,jdbcType=VARCHAR},
+      fechainicio = #{fechainicio,jdbcType=DATE},
+      fechafin = #{fechafin,jdbcType=DATE},
+      tipo = #{tipo,jdbcType=VARCHAR},
+      horas = #{horas,jdbcType=INTEGER},
+      idprofesores = #{idprofesores,jdbcType=INTEGER}
+    where idcursos = #{idcursos,jdbcType=INTEGER}
+  </update>
+</mapper>

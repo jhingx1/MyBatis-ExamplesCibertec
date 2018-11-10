@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.ProvinciasMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Provincias" >
+    <id column="idprovincia" property="idprovincia" jdbcType="INTEGER" />
+    <result column="iddepartamento" property="iddepartamento" jdbcType="INTEGER" />
+    <result column="provincia" property="provincia" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idprovincia, iddepartamento, provincia
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from provincias
+    where idprovincia = #{idprovincia,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from provincias
+    where idprovincia = #{idprovincia,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Provincias" >
+    insert into provincias (idprovincia, iddepartamento, provincia
+      )
+    values (#{idprovincia,jdbcType=INTEGER}, #{iddepartamento,jdbcType=INTEGER}, #{provincia,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Provincias" >
+    insert into provincias
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idprovincia != null" >
+        idprovincia,
+      </if>
+      <if test="iddepartamento != null" >
+        iddepartamento,
+      </if>
+      <if test="provincia != null" >
+        provincia,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idprovincia != null" >
+        #{idprovincia,jdbcType=INTEGER},
+      </if>
+      <if test="iddepartamento != null" >
+        #{iddepartamento,jdbcType=INTEGER},
+      </if>
+      <if test="provincia != null" >
+        #{provincia,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Provincias" >
+    update provincias
+    <set >
+      <if test="iddepartamento != null" >
+        iddepartamento = #{iddepartamento,jdbcType=INTEGER},
+      </if>
+      <if test="provincia != null" >
+        provincia = #{provincia,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idprovincia = #{idprovincia,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Provincias" >
+    update provincias
+    set iddepartamento = #{iddepartamento,jdbcType=INTEGER},
+      provincia = #{provincia,jdbcType=VARCHAR}
+    where idprovincia = #{idprovincia,jdbcType=INTEGER}
+  </update>
+</mapper>

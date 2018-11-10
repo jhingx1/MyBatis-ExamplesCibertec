@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="data.dao.AlumnosMapper" >
+  <resultMap id="BaseResultMap" type="data.model.Alumnos" >
+    <id column="idalumno" property="idalumno" jdbcType="INTEGER" />
+    <result column="nombre" property="nombre" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idalumno, nombre
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from alumnos
+    where idalumno = #{idalumno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from alumnos
+    where idalumno = #{idalumno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="data.model.Alumnos" >
+    insert into alumnos (idalumno, nombre)
+    values (#{idalumno,jdbcType=INTEGER}, #{nombre,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="data.model.Alumnos" >
+    insert into alumnos
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idalumno != null" >
+        idalumno,
+      </if>
+      <if test="nombre != null" >
+        nombre,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idalumno != null" >
+        #{idalumno,jdbcType=INTEGER},
+      </if>
+      <if test="nombre != null" >
+        #{nombre,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="data.model.Alumnos" >
+    update alumnos
+    <set >
+      <if test="nombre != null" >
+        nombre = #{nombre,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idalumno = #{idalumno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="data.model.Alumnos" >
+    update alumnos
+    set nombre = #{nombre,jdbcType=VARCHAR}
+    where idalumno = #{idalumno,jdbcType=INTEGER}
+  </update>
+</mapper>
