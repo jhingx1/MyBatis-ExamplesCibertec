@@ -9,12 +9,7 @@ public class Notas {
     private Short nota3;
     private String comentario;
 
-    public Integer getIdalumno() {
-        return idalumno;
-    }
-
-    public void setIdalumno(Integer idalumno) {
-        this.idalumno = idalumno;
+    public Notas() {
     }
 
     public String getAlumno() {
@@ -23,6 +18,22 @@ public class Notas {
 
     public void setAlumno(String alumno) {
         this.alumno = alumno;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Integer getIdalumno() {
+        return idalumno;
+    }
+
+    public void setIdalumno(Integer idalumno) {
+        this.idalumno = idalumno;
     }
 
     public Short getNota1() {
@@ -48,13 +59,4 @@ public class Notas {
     public void setNota3(Short nota3) {
         this.nota3 = nota3;
     }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }   
-    
 }

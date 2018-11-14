@@ -16,6 +16,7 @@ public class SessionFactory {
                     "mybatis/mybatis-config.xml");
 
             FACTORY = new SqlSessionFactoryBuilder().build(reader);
+
         } catch (IOException e) {
             throw new RuntimeException("Error: " + e, e);
         }
@@ -24,5 +25,5 @@ public class SessionFactory {
     public static SqlSessionFactory getSqlSessionFactory() {
         return FACTORY;
     }
-
 }
+

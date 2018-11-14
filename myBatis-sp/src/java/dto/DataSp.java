@@ -29,5 +29,5 @@ public class DataSp {
     public void setPromedio(Double promedio) {
         this.promedio = promedio;
     }
-
 }
+

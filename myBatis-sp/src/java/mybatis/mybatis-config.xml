@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-config.dtd">
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    
 <configuration>
-    <!-- Se puede configurar el archivo database.propertis en una ubicacion diferente -->
-    <properties resource="config/database.properties"/>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="${database.driver}"/>
-                <property name="url" value="${database.url}"/>
-                <property name="username" value="${database.username}"/>
-                <property name="password" value="${database.password}"/>
+            <dataSource type="UNPOOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" 
+                          value="jdbc:mysql://localhost/parainfo"/>
+                <property name="username" value="root"/>
+                <property name="password" value="sasa"/>
             </dataSource>
         </environment>
     </environments>
-    
     <mappers>
         <mapper resource="mybatis/mapper/NotasMapper.xml"/>
     </mappers>
-    
 </configuration>
+
